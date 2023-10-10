@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_10_174855) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_10_175622) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "poll_options", force: :cascade do |t|
+    t.bigint "poll_id", null: false
+    t.string "name"
+    t.string "photo"
+    t.integer "votes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["poll_id"], name: "index_poll_options_on_poll_id"
+  end
 
   create_table "polls", force: :cascade do |t|
     t.datetime "started_at", precision: nil
@@ -21,4 +31,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_10_174855) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "poll_options", "polls"
 end
